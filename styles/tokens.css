@@ -1,0 +1,127 @@
+/* ═══════════════════════════════════════════════
+   MEDI JOINTS — Design Tokens
+   Source: PRD/SRS UX Specification §5.2
+   ═══════════════════════════════════════════════ */
+
+:root {
+    /* ─── Brand Colors ─── */
+    --color-primary: #123B63;
+    --color-primary-light: #1a5a94;
+    --color-primary-dark: #0c2841;
+    --color-primary-rgb: 18, 59, 99;
+
+    --color-accent: #1B8F8A;
+    --color-accent-light: #22b3ac;
+    --color-accent-dark: #14706c;
+    --color-accent-rgb: 27, 143, 138;
+
+    /* ─── Status Colors ─── */
+    --color-success: #1F9D63;
+    --color-success-light: #e8f8f0;
+    --color-success-rgb: 31, 157, 99;
+
+    --color-warning: #D28A16;
+    --color-warning-light: #fdf3e0;
+    --color-warning-rgb: 210, 138, 22;
+
+    --color-critical: #D94848;
+    --color-critical-light: #fdeaea;
+    --color-critical-rgb: 217, 72, 72;
+
+    /* ─── Map Pin Colors ─── */
+    --pin-available: #1F9D63;
+    --pin-limited: #D28A16;
+    --pin-low: #E67E22;
+    --pin-full: #D94848;
+    --pin-offline: #94A3B8;
+
+    /* ─── Surfaces ─── */
+    --color-surface: #F6F9FC;
+    --color-card: #FFFFFF;
+    --color-card-hover: #FAFCFF;
+    --color-border: #E2E8F0;
+    --color-border-light: #F1F5F9;
+
+    /* ─── Text ─── */
+    --color-text: #17212B;
+    --color-text-secondary: #667585;
+    --color-text-muted: #94A3B8;
+    --color-text-inverse: #FFFFFF;
+
+    /* ─── Typography ─── */
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    --font-size-xs: 0.6875rem;   /* 11px */
+    --font-size-sm: 0.75rem;     /* 12px */
+    --font-size-base: 0.875rem;  /* 14px */
+    --font-size-md: 1rem;        /* 16px */
+    --font-size-lg: 1.125rem;    /* 18px */
+    --font-size-xl: 1.25rem;     /* 20px */
+    --font-size-2xl: 1.5rem;     /* 24px */
+    --font-size-3xl: 1.875rem;   /* 30px */
+    --font-size-4xl: 2.25rem;    /* 36px */
+    --font-size-5xl: 3rem;       /* 48px */
+    --font-size-hero: 3.75rem;   /* 60px */
+
+    --font-weight-light: 300;
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    --font-weight-extrabold: 800;
+
+    --line-height-tight: 1.15;
+    --line-height-base: 1.5;
+    --line-height-relaxed: 1.7;
+
+    /* ─── Spacing (4/8px base scale) ─── */
+    --space-1: 0.25rem;   /* 4px */
+    --space-2: 0.5rem;    /* 8px */
+    --space-3: 0.75rem;   /* 12px */
+    --space-4: 1rem;      /* 16px */
+    --space-5: 1.25rem;   /* 20px */
+    --space-6: 1.5rem;    /* 24px */
+    --space-8: 2rem;      /* 32px */
+    --space-10: 2.5rem;   /* 40px */
+    --space-12: 3rem;     /* 48px */
+    --space-16: 4rem;     /* 64px */
+    --space-20: 5rem;     /* 80px */
+    --space-24: 6rem;     /* 96px */
+
+    /* ─── Border Radius (14–18px) ─── */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-xl: 20px;
+    --radius-2xl: 24px;
+    --radius-full: 9999px;
+
+    /* ─── Shadows ─── */
+    --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.04), 0 1px 2px rgba(0, 0, 0, 0.02);
+    --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.06), 0 2px 4px rgba(0, 0, 0, 0.03);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 8px rgba(0, 0, 0, 0.04);
+    --shadow-xl: 0 20px 50px rgba(0, 0, 0, 0.12), 0 8px 16px rgba(0, 0, 0, 0.06);
+    --shadow-glow-primary: 0 0 20px rgba(var(--color-primary-rgb), 0.15);
+    --shadow-glow-accent: 0 0 20px rgba(var(--color-accent-rgb), 0.15);
+    --shadow-glow-critical: 0 0 20px rgba(var(--color-critical-rgb), 0.25);
+
+    /* ─── Transitions (180–350ms) ─── */
+    --transition-fast: 180ms ease;
+    --transition-base: 250ms ease;
+    --transition-slow: 350ms ease;
+    --transition-spring: 350ms cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    /* ─── Z-Index Scale ─── */
+    --z-base: 1;
+    --z-dropdown: 100;
+    --z-sticky: 200;
+    --z-sidebar: 300;
+    --z-modal: 400;
+    --z-toast: 500;
+    --z-sos: 600;
+
+    /* ─── Layout ─── */
+    --nav-height: 64px;
+    --sidebar-width: 260px;
+    --sidebar-width-collapsed: 72px;
+    --max-content-width: 1400px;
+}

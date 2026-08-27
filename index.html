@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Medi Joints — AI Powered Intelligent Healthcare & Medical Tourism Ecosystem</title>
+    <meta name="description" content="Real-time hospital bed availability, AI-powered triage, emergency SOS, and complete medical tourism services. Connecting patients, hospitals, and authorities on one platform.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/tokens.css">
+    <link rel="stylesheet" href="styles/base.css">
+    <link rel="stylesheet" href="styles/components.css">
+    <link rel="stylesheet" href="styles/pages.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏥</text></svg>">
+</head>
+<body>
+    <div id="app">
+        <!-- Navigation -->
+        <nav id="main-nav" class="main-nav hidden"></nav>
+        <!-- Sidebar -->
+        <aside id="sidebar" class="sidebar hidden"></aside>
+        <!-- Main Content -->
+        <main id="main-content" class="main-content"></main>
+        <!-- SOS Floating Button -->
+        <button id="sos-floating-btn" class="sos-floating-btn hidden" onclick="window.MediJoints.navigateTo('/patient/sos')">
+            <span class="sos-pulse"></span>
+            <span class="sos-icon">🚨</span>
+            <span class="sos-text">SOS Emergency</span>
+        </button>
+        <!-- Toast Container -->
+        <div id="toast-container" class="toast-container"></div>
+        <!-- Modal Overlay -->
+        <div id="modal-overlay" class="modal-overlay hidden"></div>
+        <!-- Demo Badge -->
+        <div id="demo-badge" class="demo-badge hidden">
+            <span class="demo-badge-dot"></span>
+            DEMO DATA
+        </div>
+    </div>
+
+    <script src="state/store.js"></script>
+    <script src="state/events.js"></script>
+    <script src="components/shared.js"></script>
+    <script src="components/navigation.js"></script>
+    <script src="pages/landing.js"></script>
+    <script src="pages/patient/dashboard.js"></script>
+    <script src="pages/patient/hospital-detail.js"></script>
+    <script src="pages/patient/ai-triage.js"></script>
+    <script src="pages/patient/reservation.js"></script>
+    <script src="pages/patient/sos.js"></script>
+    <script src="pages/patient/profile.js"></script>
+    <script src="pages/patient/notifications.js"></script>
+    <script src="pages/hospital/overview.js"></script>
+    <script src="pages/hospital/bed-management.js"></script>
+    <script src="pages/hospital/reservations.js"></script>
+    <script src="pages/hospital/sos-alerts.js"></script>
+    <script src="pages/hospital/patient-arrival.js"></script>
+    <script src="pages/hospital/analytics.js"></script>
+    <script src="pages/hospital/patients.js"></script>
+    <script src="pages/hospital/facility.js"></script>
+    <script src="pages/hospital/billing.js"></script>
+    <script src="pages/authority/overview.js"></script>
+    <script src="pages/authority/live-network.js"></script>
+    <script src="pages/authority/sos-monitor.js"></script>
+    <script src="pages/authority/surge-crisis.js"></script>
+    <script src="pages/authority/data-integrity.js"></script>
+    <script src="pages/authority/hospitals.js"></script>
+    <script src="pages/authority/reports.js"></script>
+    <script src="pages/patient/hospitals.js"></script>
+    <script src="pages/tourism/treatments.js"></script>
+    <script src="pages/tourism/compare.js"></script>
+    <script src="pages/tourism/consultation.js"></script>
+    <script src="pages/tourism/travel-plan.js"></script>
+    <script src="pages/tourism/hospital-doctor.js"></script>
+    <script src="pages/tourism/recovery.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

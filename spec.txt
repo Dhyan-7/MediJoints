@@ -1,0 +1,1041 @@
+MEDI JOINTS
+MVP Product Requirements + Software Requirements + UX/UI Design Specification
+Professional web demo / showcase build for ELEVATE 2026
+Real-Time · AI-Powered · Emergency-First · Three-Stakeholder Healthcare Network
+
+Source basis: Prepared from the uploaded Medi Joints Product Document (37 pages), ELEVATE 2026 Pitch Deck (14 pages), and Complete Pitch Script (9 pages).
+Prototype intent: This specification defines a polished, clickable web demonstration—not a production medical system. The demo uses controlled mock data and simulated real-time/AI/SOS behavior.
+Primary demo outcome: A judge should understand the complete value loop in under 3 minutes: patient discovers capacity → AI helps → SOS/reservation → hospital responds → authority sees the same event.
+
+1. Document Control & Executive Summary
+Item
+Specification
+Product
+Medi Joints
+Positioning
+AI Powered Intelligent Healthcare & Medical Tourism Ecosystem
+Primary market
+India; initial pilot focus is Bengaluru
+Platform model
+B2C + B2B + B2G; patient access free, hospitals paid SaaS, authority enterprise
+Demo type
+Responsive web application / SPA-style clickable prototype
+Demo priority
+Emergency discovery, live capacity, reservation, SOS, hospital response, authority visibility
+Secondary demo
+Medical tourism / treatment discovery
+Source status
+Architecture and product concept are defined; prototype/MVP is described as underway in the source documents.
+
+Executive product statement
+Medi Joints is positioned as a real-time healthcare coordination layer that connects patients, hospitals, and healthcare authorities around the same capacity information. The core experience makes hospital bed availability discoverable on a map, supports temporary reservation, and provides an emergency SOS workflow. AI is the intelligence layer for triage, hospital recommendation, smart SOS routing, predictive availability, record summarization, multilingual assistance, surge prediction, and data-integrity monitoring.
+What the web demo must prove
+The problem is an information/coordination delay, not simply hospital discovery.
+The patient sees availability by bed category rather than only hospital location.
+The patient can move from discovery to an actionable reservation or SOS request.
+A hospital receives the same event and can accept/prepare/respond.
+A capacity change propagates visually across the network.
+An authority can see network-wide capacity, SOS events, and surge/fraud signals.
+AI is visibly useful without presenting it as a replacement for doctors.
+The UI is calm, high-trust, fast, and usable under stress.
+
+2. PRD — Product Requirements Document
+2.1 Product vision
+Create a world where no patient loses time searching for a hospital bed.
+The product vision in the source material is to make hospital capacity as transparent and accessible as checking restaurant or hotel availability. The MVP demo should therefore behave like a familiar discovery-and-action product, while preserving healthcare-specific trust, emergency-first design, and role-based coordination.
+2.2 Problem statement
+Families may search for a hospital, then call multiple hospitals individually to discover whether the required capacity exists.
+A phone confirmation can become stale before arrival.
+Ambulance/paramedic teams may lack a unified capacity view.
+Hospital internal information is not normally visible to patients.
+Existing tools solve pieces—location, doctor booking, internal hospital operations—but do not provide the same real-time coordination loop.
+Source evidence: The product document describes the problem as an information gap and explicitly frames the traditional journey as emergency → panic → hospital search → repeated calls → possible arrival failure. fileciteturn4file0L92-L119
+2.3 Target users
+Persona
+Primary goal
+Critical needs
+Demo entry
+Patient / family
+Find the right care quickly
+Live beds, map, AI guidance, SOS, reservation, directions
+Patient
+Hospital admin / ward staff
+Manage capacity and incoming patients
+Bed updates, reservations, SOS alerts, ETA, analytics
+Hospital
+Healthcare authority
+Monitor network capacity
+Heatmaps, SOS monitoring, surge signals, hospital verification
+Authority
+Medi Joints operations
+Maintain network trust
+Hospital onboarding, data quality, fraud flags, system health
+Authority / Ops
+Medical tourist
+Plan specialized treatment travel
+Treatment discovery, comparison, consultation, travel plan
+Medical Tourism
+
+2.4 Product pillars
+Pillar
+Product behavior
+Demo manifestation
+True real-time
+Hospital capacity changes propagate without page refresh
+Live update toast + changed bed counts/pin state
+Map discovery
+Color-coded hospital availability pins
+Bengaluru demo map with interactive pins
+Emergency-first
+SOS remains visually prominent
+Persistent SOS CTA and one-flow emergency modal
+Reservation
+Required bed is temporarily locked
+Reservation timer / status card
+Three stakeholders
+Same event/data seen by patient, hospital, authority
+Cross-role scenario controls
+AI intelligence
+AI helps triage, rank, predict and summarize
+Explainable AI cards with confidence/limitations
+Trust & integrity
+Verified badges and data freshness
+Last updated, verified badge, stale-data warning
+Medical tourism
+Treatment-to-travel coordination
+Treatment discovery + comparison journey
+
+2.5 MVP scope for the showcase build
+The showcase MVP should be deliberately narrower than the full product roadmap. It should simulate the highest-value flows convincingly.
+Priority
+Include in demo
+Implementation
+P0
+Patient live hospital map
+Mock geospatial canvas with interactive hospital pins
+P0
+Hospital details + bed breakdown
+Modal/drawer with categories and freshness
+P0
+AI symptom triage
+Deterministic demo response for selected scenario
+P0
+Smart SOS
+Simulated ranking of 3 hospitals + acceptance flow
+P0
+Bed reservation
+Simulated auto-lock with countdown
+P0
+Hospital dashboard
+Beds + reservation queue + SOS alerts
+P0
+Authority dashboard
+Network KPIs + capacity map + SOS + surge signal
+P1
+Notifications
+In-app simulated notification center
+P1
+Patient profile / medical summary
+Demo structured summary; no real PHI
+P1
+Medical tourism
+Treatment search, compare, consultation CTA
+P2
+Billing/subscriptions
+Visual-only pricing/settings screen
+P2
+Full visa/insurance/recovery workflows
+Represent as roadmap cards, not deep implementation
+P2
+Government API / ABDM live integration
+Architecture placeholder only
+
+2.6 Explicit non-goals of the demo
+No real medical diagnosis.
+No real emergency dispatch to hospitals or ambulances.
+No real patient medical records or identifiable health data.
+No production authentication/authorization.
+No real payment processing.
+No real hospital bed feed unless separately integrated later.
+No claim that mock availability is medically or operationally authoritative.
+No dependency on a paid Google Maps API for the local showcase; use a visual map simulation with an integration placeholder.
+
+3. PRD — Core User Journeys & Acceptance Criteria
+3.1 Patient: planned bed reservation
+Open Medi Joints patient dashboard.
+Choose location or use demo location.
+Select required bed type or care need.
+Review map/list of nearby hospitals.
+Open a hospital card and inspect availability, specialization, rating, ETA, and last update.
+Choose Reserve Bed.
+Select bed category and review patient details.
+Confirm reservation.
+Show Reservation ID and a visible temporary lock countdown.
+Show navigation CTA and contact hospital CTA.
+Show reservation under Active Care / Reservations.
+Acceptance: The journey must be completable without leaving the app, with a clear status after every action.
+3.2 Patient: emergency SOS
+Tap the persistent SOS CTA.
+Show a short confirmation layer designed to prevent accidental triggers while keeping the flow fast.
+Capture demo location and optionally selected symptoms/condition.
+AI dispatcher ranks the top three suitable hospitals using condition match, required capacity, ETA, and response history.
+Show hospitals being alerted in priority order.
+Simulate a hospital acceptance.
+Show accepted hospital, ETA, direct call CTA, and navigation CTA.
+Show an emergency status timeline: SOS sent → hospital alerted → accepted → route active.
+Safety copy: The demo must state that AI assists routing/triage and does not replace qualified medical professionals. This matches the pitch script's safety framing. fileciteturn4file2L815-L828
+3.3 Hospital: respond to reservation
+Hospital user opens dashboard and sees live bed counts.
+A new reservation appears in Incoming Reservations.
+Hospital opens the reservation and reviews required bed type, patient summary, ETA, and arrival time.
+Hospital accepts the reservation.
+The selected bed count changes to reserved.
+Patient side receives a simulated confirmation.
+Hospital can mark the bed as preparing / ready / occupied.
+Acceptance: The hospital dashboard should make the operational value obvious: structured incoming flow, advance notice, and bed preparation.
+3.4 Hospital: respond to SOS
+SOS alert appears as high-priority notification.
+Hospital sees patient location, condition, required capacity, ETA, and relevant medical summary.
+Hospital can Accept SOS or Decline.
+Accepting changes the patient-side status to Hospital Accepted.
+Hospital can assign a bed/department and mark preparation started.
+Source evidence: The product document defines SOS as GPS capture → nearby capable hospitals alerted → hospital accepts → patient sees acceptance → call and route guidance. fileciteturn2file3L204-L222
+3.5 Authority: monitor a live network
+Open Authority dashboard.
+Review total hospitals, available beds, active SOS, and network health.
+Inspect the live capacity map by area.
+Open a hospital to inspect freshness and capacity.
+Open SOS Monitor to see active incidents.
+Open Surge & Crisis to see an AI warning and recommended operational actions.
+Open Data Integrity to inspect a flagged hospital and its reason.
+Source evidence: The source specifies authority monitoring, heatmaps, SOS tracking, analytics, fraud detection, crisis mode, and government API access. fileciteturn2file8L574-L586
+3.6 Medical tourism: discovery-to-consultation
+Choose Medical Tourism.
+Search for a procedure such as knee replacement, cardiac bypass, IVF, or spinal surgery.
+Filter by city, accreditation, price range, and specialist experience.
+Compare up to three hospitals.
+Open a hospital/treatment detail.
+Choose Pre-Arrival Consultation.
+Show a consultation booking preview and a travel-plan CTA.
+Display future-step cards for flights, accommodation, visa, insurance, and recovery.
+Source evidence: The product document describes treatment discovery, transparent indicative cost ranges, specialist profiles, comparison, pre-arrival consultation, travel coordination, visa, insurance, and recovery. fileciteturn3file2L609-L679
+
+4. SRS — Software Requirements Specification
+4.1 System overview
+The showcase application is a front-end-first simulation of the Medi Joints ecosystem. It is structured as one responsive web application with role-specific workspaces. The production architecture described by the source documents includes a real-time database, push/WebSocket synchronization, GPS/maps, reservation engine, SOS trigger system, and analytics engine. For the showcase, these are represented by deterministic local state and simulated events.
+Source evidence: The product document describes real-time synchronization as hospital update → instant sync → patient map/list update → reservation auto-lock → company/authority monitoring. fileciteturn4file0L264-L297
+4.2 Functional requirements
+ID
+Area
+Requirement
+FR-PAT-001
+Patient dashboard
+The system shall provide a patient home screen with location, search, bed filters, hospital map/list, AI assistant CTA, notifications, and persistent SOS.
+FR-PAT-002
+Hospital discovery
+The system shall display hospitals with availability state, distance, ETA, rating, verification, and last update.
+FR-PAT-003
+Bed category filter
+The system shall support General, ICU, Ventilator, Pediatric, Maternity, Isolation, and Burn categories.
+FR-PAT-004
+Hospital details
+The system shall show bed breakdown, specialties/services, contact, directions, reviews, and action CTAs.
+FR-PAT-005
+Reservation
+The system shall allow a patient to select a bed category, review details, and confirm a temporary reservation.
+FR-PAT-006
+Reservation state
+The system shall show Pending/Confirmed/Preparing/Completed/Expired/Cancelled states.
+FR-PAT-007
+SOS trigger
+The system shall expose a prominent SOS action and show a confirmation/status flow.
+FR-PAT-008
+AI triage
+The system shall accept a demo symptom input and return an urgency class plus recommended next action.
+FR-PAT-009
+AI hospital ranking
+The system shall show a ranked set of hospitals with reasons and ETA.
+FR-PAT-010
+Medical summary
+The system shall display a structured demo medical summary that can be shared with the receiving hospital.
+FR-HOS-001
+Hospital overview
+The system shall show total capacity, available, reserved, occupied, and freshness indicators.
+FR-HOS-002
+Bed management
+Hospital users shall be able to increment/decrement or set bed counts by category.
+FR-HOS-003
+Reservation queue
+Hospital users shall see incoming reservations with patient requirement, ETA, and action buttons.
+FR-HOS-004
+SOS queue
+Hospital users shall see active SOS alerts with accept/decline actions.
+FR-HOS-005
+Patient arrival
+Hospital users shall see ETA and a preparation state.
+FR-AUT-001
+Authority overview
+Authority users shall see network-wide KPIs and system health.
+FR-AUT-002
+Capacity map
+Authority users shall see area-level capacity states and drill-down.
+FR-AUT-003
+SOS monitoring
+Authority users shall see active incidents and status timeline.
+FR-AUT-004
+Surge prediction
+Authority users shall see a demo surge signal with contributing indicators and suggested actions.
+FR-AUT-005
+Data integrity
+Authority users shall see demo flags for stale updates/anomalous availability.
+FR-SYS-001
+Notifications
+The system shall provide a notification center for reservations, bed availability, SOS, and system alerts.
+FR-SYS-002
+Role switching
+The showcase shall allow instant switching between Patient, Hospital, and Authority demo roles.
+FR-SYS-003
+Cross-role simulation
+A demo event created in one role shall visibly affect at least one other role.
+FR-SYS-004
+Responsive layout
+The system shall work on desktop and tablet widths and maintain core actions on smaller screens.
+
+4.3 Non-functional requirements
+ID
+Category
+Requirement
+NFR-001
+Performance
+Initial interactive view should render quickly; no heavy external dependency should block the demo.
+NFR-002
+Responsiveness
+Primary controls should respond immediately; simulated real-time events should animate within ~300–800 ms.
+NFR-003
+Accessibility
+Use readable type, sufficient contrast, visible focus states, large emergency CTA, and text labels for icons.
+NFR-004
+Usability
+Patient emergency path should require minimal decisions and avoid dense forms.
+NFR-005
+Consistency
+Use one design system across all three roles.
+NFR-006
+Trust
+Every capacity card should show data freshness and verification state.
+NFR-007
+Safety
+AI copy must clearly indicate assistive guidance rather than diagnosis.
+NFR-008
+Privacy
+Use only synthetic demo data; do not embed real patient identifiers.
+NFR-009
+Reliability
+Demo should remain functional without internet after the HTML file is opened.
+NFR-010
+Maintainability
+Keep demo data, UI components, and role state separated in code so the prototype can later connect to APIs.
+
+4.4 Roles and permissions
+Capability
+Patient
+Hospital
+Authority/Ops
+View hospital availability
+✓
+✓ own facility
+✓ all
+Update bed counts
+—
+✓
+— / supervised
+Reserve bed
+✓
+Respond
+View
+Trigger SOS
+✓
+Receive/Respond
+Monitor
+View patient summary
+Own
+Only when shared/received
+Restricted
+View network heatmap
+Limited map
+Own/region context
+✓
+Hospital verification
+—
+—
+✓
+Fraud/data integrity
+—
+Own warnings
+✓
+Surge/crisis view
+—
+Advisory
+✓
+
+
+5. UX/UI Design Specification
+5.1 Design direction
+Visual tone: clinical, premium, calm, modern, trustworthy—not overly futuristic.
+Primary composition: white/light surfaces, deep blue navigation, restrained teal/green for positive states, amber for limited states, red only for emergency/error.
+Typography: highly legible sans-serif; use large headings and compact operational labels.
+Cards: rounded 14–18 px corners, subtle borders/shadows, strong hierarchy.
+Motion: short 180–350 ms transitions; avoid distracting animation in emergency mode.
+Maps: large visual area for patients; compact analytical map for authority.
+Emergency CTA: always visible, high contrast, unmistakable label 'SOS Emergency'.
+Trust signals: 'Verified', 'Updated X min ago', capacity status, and AI rationale.
+5.2 Design tokens
+Token
+Value / rule
+Use
+Primary
+#123B63
+Navigation, primary headings, main buttons
+Accent
+#1B8F8A
+AI, live status, secondary emphasis
+Success
+#1F9D63
+Available, accepted, confirmed
+Warning
+#D28A16
+Limited, stale, attention
+Critical
+#D94848
+SOS, full/critical state, destructive
+Surface
+#F6F9FC
+App background
+Card
+#FFFFFF
+Panels and cards
+Text
+#17212B
+Primary copy
+Muted
+#667585
+Secondary copy
+Radius
+14–18 px
+Cards, modals, buttons
+Spacing
+4/8 px base scale
+Layout rhythm
+
+Brand note: The uploaded pitch/product documents use a blue healthcare visual language and repeatedly emphasize real-time, emergency-first, and trustworthy capacity visibility. The exact hex values above are proposed design tokens for the demo, not source-defined brand standards.
+5.3 Information architecture
+Workspace
+Navigation
+Primary CTA
+Public / Demo Landing
+Overview, Problem, How it works, Demo entry, Medical Tourism
+Start Demo
+Patient
+Dashboard, Hospitals, Reservations, SOS, AI Assistant, Health Profile, Notifications, Medical Tourism
+Find Care / SOS
+Hospital
+Overview, Beds, Reservations, SOS Alerts, Patients, Analytics, Facility, Billing
+Update Beds / Respond
+Authority
+Overview, Live Network, SOS Monitor, Surge & Crisis, Hospitals, Data Integrity, Reports
+Open Live Monitor
+Medical Tourism
+Treatments, Compare, Hospital/Doctor, Consultation, Travel Plan, Recovery
+Find Treatment
+
+5.4 Page-by-page design
+ID
+Page
+Key components
+Primary CTA
+Next
+P01
+Landing / Demo Gateway
+Hero; live network preview; 3 stakeholder cards; demo-role selector; medical tourism teaser
+Enter Patient Demo
+Patient
+P02
+Patient Home / Live Bed Map
+Top search; filters; live map; hospital list; AI CTA; SOS CTA; notification badge
+Find a hospital
+P03/P04
+P03
+Hospital Detail Drawer
+Hospital header; verified badge; bed matrix; specialties; ETA; freshness; reviews
+Reserve bed
+P05
+P04
+AI Triage
+Chat-like symptom input; urgency badge; rationale; suggested care type; hospital results
+View matched hospitals
+P02/P06
+P05
+Reservation
+Bed type; patient summary; arrival estimate; terms; countdown
+Confirm reservation
+P07
+P06
+SOS Dispatch
+Location; condition; ranked hospitals; alert progress; acceptance
+Send SOS
+P08
+P07
+Reservation Confirmed
+Reservation ID; locked bed; countdown; hospital contact; navigation
+Open navigation
+P02
+P08
+SOS Active
+Accepted hospital; ETA; status timeline; call; route
+Track hospital
+P02
+P09
+Patient Profile
+Medical summary; documents; sharing permissions; language
+Upload / manage
+P10
+P10
+Notifications
+Reservation, bed alert, SOS, system notifications
+Open event
+Contextual
+H01
+Hospital Overview
+KPIs; live bed status; incoming reservations; active SOS; data freshness
+Update beds
+H02
+H02
+Bed Management
+Ward tabs; bed category rows; counts; quick +/-; save
+Publish update
+Cross-role
+H03
+Hospital Reservations
+Queue; patient requirement; ETA; accept/reject; status
+Accept
+H05
+H04
+SOS Alerts
+Critical queue; patient summary; capacity request; accept/decline
+Accept SOS
+Cross-role
+H05
+Patient Arrival
+Accepted reservation/SOS; ETA; preparation; assigned bed
+Mark ready
+H01
+H06
+Hospital Analytics
+Utilization; reservation trends; peak hours; response time
+View report
+Static
+A01
+Authority Overview
+Network KPIs; capacity; active SOS; surge signal; map
+Open live network
+A02
+A02
+Live Network
+City/district filter; capacity map; hospital table; freshness
+Inspect hospital
+A05
+A03
+SOS Monitor
+Active incidents; priority; accepting hospital; response timer
+Open incident
+A01
+A04
+Surge & Crisis
+AI warning; signals; forecast; suggested actions
+Open response plan
+A03
+A05
+Hospital Integrity
+Stale update/anomaly flags; acceptance rate; warnings
+Review flag
+A02
+M01
+Medical Tourism
+Treatment search; popular procedures; trust badges
+Compare hospitals
+M02
+M02
+Treatment Compare
+Up to 3 hospitals; cost range; accreditation; specialist
+Book consultation
+M03
+M03
+Consultation
+Doctor profile; slot; pre-arrival records; fee
+Request consultation
+M04
+M04
+Travel Plan
+Flight; airport pickup; hotel; visa; insurance; recovery
+Build travel plan
+Future modules
+
+
+6. Component & Interaction Specification
+6.1 Patient live map
+Map occupies ~55–65% of desktop viewport; hospital list occupies ~35–45%.
+Color-coded pins: green = available, yellow = limited, orange = very low, red = no beds, grey = offline/stale.
+Pin click opens a bottom/side sheet instead of navigating away.
+List cards mirror map state exactly.
+Each card includes: hospital name, verification, distance, ETA, relevant bed availability, freshness, and action.
+A top filter row supports bed type, distance, specialty, and 'Available now'.
+A 'Recommended for you' AI strip can appear after triage.
+Source mapping: These availability colors and hospital-card details are directly based on the product document. fileciteturn2file3L176-L198
+6.2 Reservation component
+Step indicator: 1 Bed type → 2 Patient details → 3 Review → 4 Confirmed.
+Show a clear temporary-lock rule such as 'Demo reservation hold: 60:00'.
+Show reservation ID after confirmation.
+Show hospital notification state: 'Hospital notified'.
+Show navigation and call actions.
+Bed count must visibly decrease when the demo reservation is confirmed.
+Source mapping: The source describes selection of bed type, review of patient details, temporary auto-lock, hospital notification, confirmation ID/directions, and automatic bed count update. fileciteturn2file3L194-L208
+6.3 SOS component
+Persistent red emergency CTA with text, not icon-only.
+Confirmation should ask only essential information.
+Use location and selected condition in the dispatch simulation.
+Show a ranked list of three hospitals with explicit reasons.
+Show dispatch sequence and acceptance.
+After acceptance, keep call and navigation actions prominent.
+Display a disclaimer: 'AI assists routing; medical decisions remain with healthcare professionals.'
+Source mapping: The source AI dispatcher ranks the top three hospitals based on condition, profile, capacity, specialization, traffic/ETA, and response history. fileciteturn3file1L504-L519
+6.4 Hospital bed management
+Use category rows with Available / Reserved / Occupied / Total.
+Provide quick increment/decrement controls and a prominent Publish Update button.
+Show 'Last updated' and data freshness status.
+When publishing a change, trigger a global demo event and show the patient/authority effect.
+Use confirmation for unusually large changes to avoid accidental edits.
+6.5 Authority analytics
+Top KPI row: hospitals online, beds available, ICU available, active SOS, stale hospitals.
+Network map with filters for city/district/bed category.
+Active SOS queue with severity and response time.
+Surge card with trend, geographic area, confidence label, and recommended operational actions.
+Integrity panel with flags for stale updates and suspicious availability patterns.
+Source mapping: Surge signals in the product include rapid bed decreases, SOS spikes, seasonal patterns, and unusual ward admission patterns. fileciteturn2file6L410-L425
+6.6 Medical tourism UI
+Keep medical tourism visually connected to the core product but clearly secondary to emergency care.
+Use treatment-first search rather than hospital-first search.
+Comparison cards should emphasize indicative cost range, accreditation, specialist experience, and international-patient support.
+Consultation CTA should appear before travel booking.
+Travel plan can show a vertical timeline: consultation → treatment plan → visa → flight → airport pickup → stay → treatment → recovery.
+
+7. Data Model & API Blueprint
+These entities are a proposed implementation model derived from the product requirements. They are not claimed to be exact production schema definitions in the source documents.
+Entity
+Core fields
+Relationships
+User
+id, role, name, phone, language, location
+Patient/Hospital/Authority
+PatientProfile
+userId, bloodGroup, allergies, conditions, medications, consent
+User; MedicalSummary
+Hospital
+id, name, type, address, geo, verification, rating, status
+Beds; Reservations; SOS
+BedInventory
+hospitalId, category, total, available, reserved, occupied, updatedAt
+Hospital
+Reservation
+id, patientId, hospitalId, category, status, expiresAt, eta
+Patient; Hospital
+SOSIncident
+id, patientId, location, condition, priority, status, acceptedHospitalId
+Patient; Hospitals
+AISuggestion
+type, inputRef, result, rationale, confidence, createdAt
+Patient/SOS
+Notification
+id, recipientId, type, title, body, readAt
+User
+MedicalSummary
+bloodGroup, allergies, diagnoses, medications, surgeries
+Patient
+HospitalFlag
+hospitalId, flagType, severity, reason, createdAt, resolution
+Hospital; Authority
+Treatment
+id, procedure, specialty, city, indicativeCostRange
+Hospital/Doctor
+TravelPlan
+patientId, hospitalId, consultation, flight, hotel, visa, insurance, recovery
+Patient
+
+7.1 Suggested REST/event endpoints
+Method
+Endpoint
+Purpose
+GET
+/hospitals?lat=&lng=&bedType=
+Nearby hospitals and live availability
+GET
+/hospitals/:id
+Hospital detail
+GET
+/hospitals/:id/beds
+Bed inventory
+PATCH
+/hospitals/:id/beds
+Publish bed update
+POST
+/reservations
+Create reservation
+POST
+/reservations/:id/cancel
+Cancel reservation
+GET
+/reservations/:id
+Reservation status
+POST
+/sos
+Create SOS incident
+POST
+/sos/:id/accept
+Hospital accepts SOS
+GET
+/sos/:id
+SOS status
+POST
+/ai/triage
+Symptom triage request
+POST
+/ai/recommend
+Hospital recommendation
+POST
+/records/summarize
+Create structured medical summary
+GET
+/authority/overview
+Authority KPIs
+GET
+/authority/surge
+Surge predictions
+GET
+/authority/integrity
+Data integrity flags
+
+7.2 Real-time events
+bed.updated — broadcast when a hospital publishes inventory.
+reservation.created — hospital receives incoming reservation.
+reservation.accepted — patient receives confirmation.
+reservation.expired — held bed returns to availability.
+sos.created — eligible hospitals receive alert.
+sos.accepted — patient/authority receive acceptance.
+hospital.stale — authority receives freshness alert.
+surge.detected — authority receives early-warning event.
+
+8. Showcase MVP Technical Architecture
+Layer
+Demo implementation
+Production evolution
+UI
+Single responsive HTML/CSS/JS app
+React/Next.js or equivalent
+State
+In-memory/local state
+Centralized application state + server state
+Data
+Synthetic Bengaluru hospital dataset
+Firebase/Supabase/custom real-time DB
+Map
+Visual map simulation
+Google Maps API
+Realtime
+Simulated event bus
+WebSocket / push sync
+AI
+Deterministic scenario responses
+NLP/ML services
+Auth
+Demo role switch
+OTP/OAuth/RBAC
+Notifications
+In-app simulation
+FCM/Web Push
+Security
+No real PHI
+Encryption, consent, audit, production security review
+
+8.1 Demo event engine
+User action changes local state.
+State mutation emits a named demo event.
+Relevant role views subscribe to the same state.
+UI shows an animated toast and updates affected cards.
+A cross-role activity feed records the event.
+Key demo moment: Hospital publishes 'ICU +1'. Patient map changes from limited to available, authority KPI changes, and a notification appears. This is the most important visualization of the platform's real-time value.
+8.2 Synthetic demo dataset
+Hospital
+Area
+ICU
+General
+Ventilator
+Status
+Demo purpose
+Asteria Care Hospital
+Koramangala
+4
+18
+2
+Available
+Primary reservation target
+Bengaluru Central Medical
+Indiranagar
+1
+7
+0
+Limited
+Limited-state visualization
+Metro Trauma Institute
+Hebbal
+6
+11
+3
+Available
+SOS/trauma target
+Starlight Multi-Specialty
+Whitefield
+0
+3
+0
+Critical
+Predictive availability scenario
+Greenfield Community Hospital
+Jayanagar
+2
+22
+1
+Available
+Small-hospital visibility
+North City Hospital
+Yelahanka
+0
+0
+0
+Offline
+Offline/stale state
+
+8.3 Recommended judge demo sequence
+Landing: click 'Start Patient Demo'.
+Patient map: click 'AI Assist' and enter 'chest pain and difficulty breathing'.
+AI triage: show Critical and ICU/trauma recommendation.
+SOS: click 'Start Smart SOS'.
+Dispatcher: show top 3 ranked hospitals; click simulated acceptance.
+SOS active: show accepted hospital, ETA, call and navigation.
+Switch to Hospital role: show same SOS in the hospital queue; accept/prepare.
+Switch to Patient: show status updated.
+Open Bed Management: change ICU from 0 to 1 at a hospital.
+Switch to Patient: show map/card update without refresh.
+Switch to Authority: show network KPI and activity feed updated.
+Optional: open Medical Tourism and compare two hospitals for knee replacement.
+
+9. QA / Acceptance Test Plan
+ID
+Test
+Expected result
+Status
+AT-001
+Patient map loads
+Patient dashboard displays hospital pins, list, filters, SOS CTA
+Pass/Fail
+AT-002
+Hospital detail
+Clicking a pin opens correct capacity breakdown and freshness
+Pass/Fail
+AT-003
+AI triage
+Critical demo symptom returns Critical with appropriate next action
+Pass/Fail
+AT-004
+SOS
+SOS creates incident and displays ranked hospitals
+Pass/Fail
+AT-005
+SOS acceptance
+Hospital acceptance changes patient status
+Pass/Fail
+AT-006
+Reservation
+Reservation creates ID and temporary lock state
+Pass/Fail
+AT-007
+Bed update
+Hospital update changes patient and authority values
+Pass/Fail
+AT-008
+Freshness
+Hospital cards show last update and stale/offline state
+Pass/Fail
+AT-009
+Authority
+Authority dashboard shows KPI/map/SOS/surge/integrity sections
+Pass/Fail
+AT-010
+Medical tourism
+Treatment search and compare flow is clickable
+Pass/Fail
+AT-011
+Responsive
+Core views remain usable at tablet and mobile widths
+Pass/Fail
+AT-012
+Safety copy
+AI screens state assistive/non-diagnostic role
+Pass/Fail
+AT-013
+Demo reset
+Reset Demo restores original synthetic state
+Pass/Fail
+AT-014
+No real PHI
+No real patient identifiers or live medical records are included
+Pass/Fail
+
+9.1 Definition of Done for showcase
+All primary navigation items work.
+All P0 flows can be completed end-to-end.
+Cross-role state updates are visible.
+No broken buttons, dead-end CTAs, or unexplained modal states.
+Every page has one primary CTA and clear secondary actions.
+SOS is visually prominent but not accidentally triggered.
+Demo data is synthetic and clearly labeled.
+The product can be presented without requiring an API key.
+
+10. Production Roadmap Mapping
+Stage
+Source roadmap
+Web/product implication
+Current / Prototype
+Core platform development; patient app, hospital dashboard, real-time bed sync, maps
+Perfect the showcase and validate UX with pilot stakeholders
+Months 2–3
+Reservation + SOS engine
+Connect reservation/SOS APIs and hospital notifications
+Months 3–4
+AI triage + Smart SOS + multilingual chatbot
+Replace deterministic demo AI with governed AI services
+Months 4–6
+Bengaluru pilot, 10–30 hospitals
+Pilot dashboards, onboarding, monitoring and analytics
+Months 7–9
+Advanced AI: predictive availability, recommendation, record summarizer, fraud detection
+Add explainable AI components and data-quality workflows
+Months 9–10
+Medical tourism module
+Integrate treatment, consultation and travel partners
+Months 10–12
+Authority dashboard + surge AI + revenue
+Productionize authority monitoring and enterprise controls
+
+Source mapping: The ELEVATE deck describes a first six-month build/validate phase with core platform, reservation/SOS, AI v1, and a Bengaluru pilot, followed by multi-city expansion and advanced AI/medical tourism/government dashboard work. fileciteturn4file1L561-L585
+10.1 Success metrics for the pilot
+Metric
+Why it matters
+Demo representation
+Hospital onboarding
+Network density determines utility
+Authority hospital count
+Bed-data freshness
+Trust depends on current capacity
+Freshness badges / stale flags
+Reservation success rate
+Validates actionability
+Reservation status timeline
+SOS response time
+Validates emergency coordination
+Dispatch/accept timers
+Patient time-to-decision
+Core mission metric
+Journey timestamps
+Hospital adoption
+Validates B2B willingness to use
+Hospital activity feed
+Data integrity flags
+Protects network trust
+Authority integrity panel
+AI recommendation usefulness
+Validates intelligence layer
+Explainable recommendation cards
+
+10.2 Funding-to-product story
+The pitch materials ask for ₹50 lakh to move from prototype to measurable real-world validation. The demo should therefore make the funding-to-outcome connection visible: product build → hospital onboarding → live capacity → reservation/SOS activity → measurable pilot evidence.
+Source evidence: The pitch script explicitly frames the ask as moving from prototype to proof and targets a Bengaluru pilot with 10–30 hospitals, live bed data, operational SOS, AI triage, and 100+ reservations within six months. fileciteturn4file2L756-L769
+
+11. Requirements Traceability
+Source concept
+PRD/SRS IDs
+Demo pages
+Live bed availability
+FR-PAT-002/003; FR-HOS-002; FR-AUT-002
+P02, P03, H01, H02, A01, A02
+Bed reservation
+FR-PAT-005/006; FR-HOS-003
+P05, P07, H03, H05
+Emergency SOS
+FR-PAT-007; FR-HOS-004; FR-AUT-003
+P06, P08, H04, A03
+AI triage
+FR-PAT-008
+P04
+Smart SOS dispatcher
+FR-PAT-009
+P06
+Health record summarizer
+FR-PAT-010
+P09, H04
+Multilingual chatbot
+UX requirement
+P02/P04/P09
+Surge prediction
+FR-AUT-004
+A04
+Fraud/data integrity
+FR-AUT-005
+A05
+Three dashboards
+All role FRs
+Patient/Hospital/Authority workspaces
+Medical tourism
+P1 journey
+M01–M04
+
+11.1 Source-derived facts vs proposed design decisions
+Category
+Source-derived
+Proposed for this demo
+Core problem
+Information delay / lack of real-time capacity coordination
+Emergency-first UI with minimal cognitive load
+Core features
+Live beds, reservation, SOS, AI layer, three dashboards
+Exact page inventory and component layouts
+Bed categories
+General, ICU, Ventilator, Pediatric, Maternity, Isolation, Burn
+Category filter UI and synthetic counts
+SOS
+GPS, multi-hospital alerts, acceptance, route guidance
+Simulated dispatch with deterministic ranking
+AI
+Eight planned capabilities
+Three primary interactive demos; others represented in panels/roadmap
+Tech direction
+Firebase/Supabase/custom real-time DB, WebSocket/push, Google Maps
+Offline single-file demo to avoid keys/dependencies
+Pilot
+Bengaluru, 10–30 hospitals, first 100+ reservations
+Synthetic Bengaluru dataset
+Brand
+Medi Joints, real-time/AI/end-to-end positioning
+Proposed exact UI tokens, component dimensions, animation timings
+
+12. Final Design Principle
+Design the demo so a judge can understand it without explanation.
+The strongest visual story is not a collection of screens. It is one connected event moving through the network: a patient needs care → AI identifies urgency → Medi Joints finds the right capacity → hospital accepts → bed is held/prepared → patient is routed → authority sees the system-level event. Every major screen should reinforce that same story.
