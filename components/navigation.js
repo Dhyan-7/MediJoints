@@ -11,6 +11,7 @@ window.Navigation = (function() {
             items: [
                 { icon: '🗺️', label: 'Dashboard', path: '/patient/dashboard' },
                 { icon: '🏥', label: 'Hospitals', path: '/patient/hospitals' },
+                { icon: '🚑', label: 'Book Ambulance', path: '/patient/ambulance' },
                 { icon: '🤖', label: 'AI Assistant', path: '/patient/ai-triage' },
                 { icon: '📋', label: 'Reservations', path: '/patient/reservations' },
                 { icon: '🚨', label: 'SOS Emergency', path: '/patient/sos', critical: true },

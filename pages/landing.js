@@ -200,31 +200,58 @@ window.LandingPage = (function() {
             </div>
         </section>
 
-        <!-- Medical Tourism CTA -->
-        <section class="landing-section">
-            <div class="landing-grid-2-1" style="display:grid;grid-template-columns:1.5fr 1fr;gap:var(--space-8);align-items:center">
+        <!-- On-Demand Ambulance Showcase -->
+        <section class="landing-section" style="background:linear-gradient(135deg, rgba(18,59,99,0.03), rgba(27,143,138,0.06));padding:var(--space-16) var(--space-8);border-radius:var(--radius-2xl);margin:var(--space-12) auto;max-width:1200px;border:1px solid var(--color-border-light)">
+            <div style="display:grid;grid-template-columns:1.2fr 1fr;gap:var(--space-8);align-items:center">
                 <div>
-                    <div class="badge badge-accent" style="margin-bottom:var(--space-4)">New Module</div>
-                    <h2 style="margin-bottom:var(--space-4)">Complete Medical Tourism Ecosystem</h2>
-                    <p class="text-muted" style="margin-bottom:var(--space-6);font-size:var(--font-size-md);line-height:1.7">
-                        From treatment discovery to post-recovery — one platform for patients traveling across cities, states, and borders.
-                        Compare hospitals, consult doctors, book flights, arrange accommodation, and manage insurance — all in Medi Joints.
+                    <div class="badge badge-critical" style="margin-bottom:var(--space-3)">🚑 On-Demand Emergency Transit</div>
+                    <h2 style="margin-bottom:var(--space-3)">Uber for Ambulances with Standard Fares</h2>
+                    <p class="text-muted" style="margin-bottom:var(--space-5);font-size:var(--font-size-md);line-height:1.7">
+                        Book certified ambulances in seconds with 100% transparent regulated pricing. Choose from 5 specialized tiers — from normal transfers to 5G-connected ICU units on wheels with real-time vitals telemetry to hospital ERs.
                     </p>
-                    <div style="display:flex;flex-wrap:wrap;gap:var(--space-3);margin-bottom:var(--space-6)">
-                        ${['Treatment Discovery', 'Cost Comparison', 'Pre-Arrival Consultation', 'Flight & Hotel', 'Medical Visa', 'Insurance Support', 'Recovery Care'].map(s =>
-                            `<span class="chip active">${s}</span>`
-                        ).join('')}
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:var(--space-3);margin-bottom:var(--space-6);font-size:var(--font-size-sm)">
+                        <div style="display:flex;align-items:center;gap:var(--space-2)">
+                            <span>📶</span> <strong>5G Smart Mobile ER</strong> (₹4,200)
+                        </div>
+                        <div style="display:flex;align-items:center;gap:var(--space-2)">
+                            <span>💨</span> <strong>Ventilator / Mobile ICU</strong> (₹3,200)
+                        </div>
+                        <div style="display:flex;align-items:center;gap:var(--space-2)">
+                            <span>🫁</span> <strong>Basic Life Support</strong> (₹1,500)
+                        </div>
+                        <div style="display:flex;align-items:center;gap:var(--space-2)">
+                            <span>🛏️</span> <strong>Normal Transport</strong> (₹800)
+                        </div>
                     </div>
-                    <button class="btn btn-accent btn-lg" onclick="window.MediJoints.switchRole('tourism')">Explore Medical Tourism →</button>
+                    <button class="btn btn-primary btn-lg" onclick="window.MediJoints.switchRole('patient'); window.MediJoints.navigateTo('/patient/ambulance');">
+                        🚑 Book an Ambulance Now →
+                    </button>
                 </div>
-                <div class="card card-elevated" style="padding:var(--space-8);text-align:center;background:linear-gradient(135deg, rgba(var(--color-accent-rgb),0.05), rgba(var(--color-primary-rgb),0.05))">
-                    <div style="font-size:4rem;margin-bottom:var(--space-4)">🌍</div>
-                    <h3 style="margin-bottom:var(--space-2)">End-to-End Service</h3>
-                    <p class="text-muted">Consultation → Treatment Plan → Visa → Flight → Hotel → Treatment → Recovery</p>
-                    <div style="margin-top:var(--space-4);display:flex;justify-content:center;gap:var(--space-2)">
-                        <span class="badge badge-accent">NABH</span>
-                        <span class="badge badge-accent">JCI</span>
-                        <span class="badge badge-accent">ISO</span>
+                <div class="card card-elevated" style="background:var(--color-card);border:2px solid var(--color-primary-light);padding:var(--space-6)">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:var(--space-4)">
+                        <span class="badge badge-available badge-dot animate-pulse">Live Fleet Active</span>
+                        <span class="text-xs text-muted">Bengaluru Network</span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:var(--space-3);margin-bottom:var(--space-4);padding:var(--space-3);background:var(--color-surface);border-radius:var(--radius-md)">
+                        <span style="font-size:2rem">🚑</span>
+                        <div>
+                            <div class="font-bold text-sm">KA-01-MJ-5G-902 (5G Smart)</div>
+                            <div class="text-xs text-muted">Driver: Ramesh Gowda • ★ 4.9 (1,420 trips)</div>
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:repeat(3, 1fr);gap:var(--space-2);text-align:center;font-size:var(--font-size-xs)">
+                        <div style="background:var(--color-surface);padding:var(--space-2);border-radius:var(--radius-sm)">
+                            <div class="text-muted">ETA</div>
+                            <strong>4 mins</strong>
+                        </div>
+                        <div style="background:var(--color-surface);padding:var(--space-2);border-radius:var(--radius-sm)">
+                            <div class="text-muted">Telemetry</div>
+                            <strong style="color:var(--color-success)">5G Active</strong>
+                        </div>
+                        <div style="background:var(--color-surface);padding:var(--space-2);border-radius:var(--radius-sm)">
+                            <div class="text-muted">Surge</div>
+                            <strong style="color:var(--color-success)">0% Fixed</strong>
+                        </div>
                     </div>
                 </div>
             </div>

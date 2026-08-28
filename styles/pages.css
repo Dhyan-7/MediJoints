@@ -1043,3 +1043,98 @@
     .landing-hero-stats { gap: var(--space-6); }
     .page-container { padding: var(--space-4); }
 }
+
+/* ─── On-Demand Ambulance Booking (Ola/Uber Style) ─── */
+.ambulance-tier-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-4);
+    background: var(--color-card);
+    border: 2px solid var(--color-border-light);
+    border-radius: var(--radius-lg);
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    user-select: none;
+}
+
+.ambulance-tier-card:hover {
+    border-color: var(--color-primary-light);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+.ambulance-tier-card.selected {
+    border-color: var(--color-primary);
+    background: rgba(var(--color-primary-rgb), 0.04);
+    box-shadow: 0 0 0 1px var(--color-primary), 0 8px 24px rgba(18, 59, 99, 0.12);
+}
+
+.ambulance-tier-icon-wrap {
+    width: 54px;
+    height: 54px;
+    border-radius: var(--radius-md);
+    background: var(--color-surface);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid var(--color-border-light);
+    transition: all var(--transition-base);
+}
+
+.ambulance-tier-icon-wrap.glow {
+    background: linear-gradient(135deg, rgba(var(--color-primary-rgb), 0.12), rgba(var(--color-accent-rgb), 0.12));
+    border-color: var(--color-primary);
+}
+
+/* Radar Scan Animation */
+.radar-container {
+    position: relative;
+}
+
+.radar-circle {
+    position: absolute;
+    border-radius: 50%;
+    border: 2px solid var(--color-primary);
+    opacity: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    animation: radarRipple 2.4s cubic-bezier(0.1, 0.8, 0.3, 1) infinite;
+}
+
+.radar-circle-1 { width: 100px; height: 100px; animation-delay: 0s; }
+.radar-circle-2 { width: 170px; height: 170px; animation-delay: 0.8s; }
+.radar-circle-3 { width: 240px; height: 240px; animation-delay: 1.6s; }
+
+@keyframes radarRipple {
+    0% {
+        width: 30px;
+        height: 30px;
+        opacity: 0.9;
+        border-color: var(--color-accent);
+    }
+    100% {
+        width: 240px;
+        height: 240px;
+        opacity: 0;
+        border-color: var(--color-primary);
+    }
+}
+
+.route-path-animated {
+    animation: dashMove 1.5s linear infinite;
+}
+
+@keyframes dashMove {
+    from { stroke-dashoffset: 24; }
+    to { stroke-dashoffset: 0; }
+}
+
+@media (max-width: 768px) {
+    .ambulance-booking-grid, .ambulance-tracking-grid {
+        grid-template-columns: 1fr !important;
+    }
+}
+

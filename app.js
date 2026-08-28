@@ -13,6 +13,7 @@ window.MediJoints = (function() {
         '/patient/dashboard': () => PatientDashboard.render(),
         '/patient/hospitals': () => PatientHospitalsPage.render(),
         '/patient/hospital/:id': (id) => HospitalDetail.render(id),
+        '/patient/ambulance': () => AmbulancePage.render(),
         '/patient/ai-triage': () => AITriagePage.render(),
         '/patient/reservation/:id': (id) => ReservationPage.render(id),
         '/patient/reservations': () => {
@@ -142,6 +143,7 @@ window.MediJoints = (function() {
             AITriagePage.reset();
             ReservationPage.reset();
             SOSPage.reset();
+            AmbulancePage.reset();
             refreshPage();
         });
 

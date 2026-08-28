@@ -246,6 +246,218 @@ window.MediJointsStore = (function() {
         }
     ];
 
+    // ─── Ambulance Tiers & Standard Pricing (Bengaluru Health Standards) ───
+    const AMBULANCE_TIERS = [
+        {
+            id: '5g_smart',
+            name: '5G Smart Ambulance ("Mobile ER")',
+            tagline: 'Hospital-on-Wheels with live 5G telemetry & ER command sync',
+            icon: '📶',
+            baseFare: 4200, // Includes first 5 km
+            perKmRate: 120,
+            baseDistance: 5,
+            equipmentFee: 0,
+            badge: '⚡ Most Advanced',
+            badgeClass: 'badge-accent',
+            etaMin: 4,
+            equipment: [
+                'Ultra-low-latency 5G telemetry gateway',
+                'Live 4K/AR video glasses connected to Hospital ER',
+                'AI 12-lead cloud ECG & SpO2 streaming',
+                'Portable point-of-care ultrasound',
+                'Invasive transport ventilator & defibrillator'
+            ],
+            staff: 'Emergency Physician + Senior Critical Care Paramedic'
+        },
+        {
+            id: 'ventilator_icu',
+            name: 'Ventilator / Mobile ICU (ALS)',
+            tagline: 'Full intensive care unit on wheels for critical patients',
+            icon: '💨',
+            baseFare: 3200,
+            perKmRate: 90,
+            baseDistance: 5,
+            equipmentFee: 0,
+            badge: 'Critical Care',
+            badgeClass: 'badge-critical',
+            etaMin: 6,
+            equipment: [
+                'Invasive multi-mode transport ventilator',
+                'Biphasic cardiac defibrillator & pacer',
+                'Syringe infusion pumps (x3)',
+                'Suction machine & emergency airway intubation kit',
+                'Emergency cardiac drugs & IV solutions'
+            ],
+            staff: 'ICU Trained Nurse + Certified ALS Paramedic'
+        },
+        {
+            id: 'bls',
+            name: 'Basic Life Support (BLS)',
+            tagline: 'For stable emergencies requiring oxygen & paramedic monitoring',
+            icon: '🫁',
+            baseFare: 1500,
+            perKmRate: 50,
+            baseDistance: 5,
+            equipmentFee: 0,
+            badge: 'Emergency Ready',
+            badgeClass: 'badge-primary',
+            etaMin: 5,
+            equipment: [
+                'Continuous 100% Medical Oxygen supply (D-type)',
+                'Multi-parameter vitals monitor (NIBP, SpO2, Pulse)',
+                'Spine board, scoop stretcher & cervical collars',
+                'Emergency first aid & trauma resuscitation kit'
+            ],
+            staff: 'Certified Emergency Medical Technician (EMT)'
+        },
+        {
+            id: 'normal_pts',
+            name: 'Normal / Patient Transport (PTS)',
+            tagline: 'Comfortable wheelchair and stretcher non-emergency transit',
+            icon: '🛏️',
+            baseFare: 800,
+            perKmRate: 35,
+            baseDistance: 5,
+            equipmentFee: 0,
+            badge: 'Budget Non-Emergency',
+            badgeClass: 'badge-available',
+            etaMin: 8,
+            equipment: [
+                'Foldable wheelchair & standard ambulance stretcher',
+                'Basic first-aid kit',
+                'Low-entry ramp for elder mobility',
+                'Air-conditioned cabin with companion seating'
+            ],
+            staff: 'Trained Ambulance Driver + Patient Care Attendant'
+        },
+        {
+            id: 'nicu_neonatal',
+            name: 'Neonatal / Pediatric ICU (NICU)',
+            tagline: 'Specialized infant transport with incubator & pediatric care',
+            icon: '👶',
+            baseFare: 4800,
+            perKmRate: 130,
+            baseDistance: 5,
+            equipmentFee: 0,
+            badge: 'Neonatal Specialist',
+            badgeClass: 'badge-warning',
+            etaMin: 7,
+            equipment: [
+                'Temperature-regulated transport incubator',
+                'Neonatal precision micro-ventilator',
+                'Phototherapy & neonatal infusion setup',
+                'Pediatric airway management tools'
+            ],
+            staff: 'Neonatologist / Pediatrician + Neonatal Nurse'
+        }
+    ];
+
+    // ─── Synthetic Bengaluru Ambulance Fleet ───
+    const INITIAL_AMBULANCES = [
+        {
+            id: 'amb-1',
+            tierId: '5g_smart',
+            vehicleNo: 'KA-01-MJ-5G-902',
+            driverName: 'Ramesh Gowda',
+            driverPhoto: '👨‍✈️',
+            driverPhone: '+91 98450 12345',
+            rating: 4.9,
+            totalTrips: 1420,
+            medicName: 'Dr. Meera Rao (Emergency Care)',
+            hospitalAffiliation: 'Asteria Care Hospital',
+            currentLocation: 'Koramangala 4th Block',
+            lat: 34, lng: 54,
+            status: 'available',
+            speedKmH: 52,
+            vitals: { spo2: 99, pulse: 74, bp: '120/80', oxygenLevel: 98, latencyMs: 14 }
+        },
+        {
+            id: 'amb-2',
+            tierId: 'ventilator_icu',
+            vehicleNo: 'KA-04-MJ-ICU-311',
+            driverName: 'Syed Imran',
+            driverPhoto: '👨‍⚕️',
+            driverPhone: '+91 98450 23456',
+            rating: 4.8,
+            totalTrips: 980,
+            medicName: 'Sr. Nurse Anitha Paul',
+            hospitalAffiliation: 'Metro Trauma Institute',
+            currentLocation: 'Indiranagar 100ft Road',
+            lat: 29, lng: 61,
+            status: 'available',
+            speedKmH: 48,
+            vitals: { spo2: 98, pulse: 78, bp: '118/76', oxygenLevel: 95, latencyMs: 22 }
+        },
+        {
+            id: 'amb-3',
+            tierId: 'bls',
+            vehicleNo: 'KA-05-MJ-BLS-784',
+            driverName: 'Manjunath K.',
+            driverPhoto: '👨‍✈️',
+            driverPhone: '+91 98450 34567',
+            rating: 4.7,
+            totalTrips: 2150,
+            medicName: 'EMT Karthik Sharma',
+            hospitalAffiliation: 'Bengaluru Central Medical',
+            currentLocation: 'Jayanagar 4th Block',
+            lat: 44, lng: 46,
+            status: 'available',
+            speedKmH: 45,
+            vitals: { spo2: 99, pulse: 72, bp: '122/82', oxygenLevel: 100, latencyMs: 28 }
+        },
+        {
+            id: 'amb-4',
+            tierId: 'normal_pts',
+            vehicleNo: 'KA-03-MJ-PTS-109',
+            driverName: 'Venkatesh Babu',
+            driverPhoto: '👨‍✈️',
+            driverPhone: '+91 98450 45678',
+            rating: 4.9,
+            totalTrips: 3400,
+            medicName: 'Care Attendant Raju M.',
+            hospitalAffiliation: 'Sanjeevani Health Hub',
+            currentLocation: 'HSR Layout Sector 2',
+            lat: 38, lng: 57,
+            status: 'available',
+            speedKmH: 40,
+            vitals: { spo2: 98, pulse: 70, bp: '120/80', oxygenLevel: 92, latencyMs: 35 }
+        },
+        {
+            id: 'amb-5',
+            tierId: 'nicu_neonatal',
+            vehicleNo: 'KA-51-MJ-NICU-440',
+            driverName: 'Pradeep Kumar',
+            driverPhoto: '👨‍⚕️',
+            driverPhone: '+91 98450 56789',
+            rating: 5.0,
+            totalTrips: 640,
+            medicName: 'Dr. Shalini Varma (Neonatologist)',
+            hospitalAffiliation: 'Metro Trauma Institute',
+            currentLocation: 'Hebbal Flyover',
+            lat: 20, lng: 50,
+            status: 'available',
+            speedKmH: 55,
+            vitals: { spo2: 100, pulse: 120, bp: '80/50', oxygenLevel: 99, latencyMs: 16 }
+        },
+        {
+            id: 'amb-6',
+            tierId: '5g_smart',
+            vehicleNo: 'KA-02-MJ-5G-118',
+            driverName: 'Anand Murthy',
+            driverPhoto: '👨‍✈️',
+            driverPhone: '+91 98450 67890',
+            rating: 4.9,
+            totalTrips: 1120,
+            medicName: 'Dr. Rajesh Patel',
+            hospitalAffiliation: 'Asteria Care Hospital',
+            currentLocation: 'Whitefield Main Road',
+            lat: 32, lng: 70,
+            status: 'available',
+            speedKmH: 50,
+            vitals: { spo2: 99, pulse: 75, bp: '120/80', oxygenLevel: 97, latencyMs: 12 }
+        }
+    ];
+
     // ─── State ───
     let state = {
         currentRole: null,  // 'patient', 'hospital', 'authority', 'tourism', null (landing)
@@ -253,6 +465,9 @@ window.MediJointsStore = (function() {
         hospitals: JSON.parse(JSON.stringify(INITIAL_HOSPITALS)),
         patient: JSON.parse(JSON.stringify(INITIAL_PATIENT)),
         treatments: JSON.parse(JSON.stringify(TREATMENTS)),
+        ambulances: JSON.parse(JSON.stringify(INITIAL_AMBULANCES)),
+        ambulanceBookings: [],
+        activeAmbulanceBooking: null,
         reservations: [],
         sosIncidents: [],
         notifications: [],
@@ -583,6 +798,146 @@ window.MediJointsStore = (function() {
         };
     }
 
+    // ─── Ambulance & Ride Lifecycle (Ola/Uber Style) ───
+    function getAmbulanceTiers() {
+        return AMBULANCE_TIERS;
+    }
+
+    function getAmbulanceTier(id) {
+        return AMBULANCE_TIERS.find(t => t.id === id);
+    }
+
+    function getAmbulanceFleet() {
+        return state.ambulances;
+    }
+
+    function getActiveAmbulanceBooking() {
+        return state.activeAmbulanceBooking;
+    }
+
+    function getAmbulanceBookings() {
+        return state.ambulanceBookings;
+    }
+
+    function calculateAmbulanceFare(tierId, distanceKm) {
+        const tier = getAmbulanceTier(tierId);
+        if (!tier) return null;
+        const dist = Math.max(1, parseFloat(distanceKm) || 5);
+        const extraKm = Math.max(0, dist - tier.baseDistance);
+        const distanceCharge = Math.round(extraKm * tier.perKmRate);
+        const baseFare = tier.baseFare;
+        const subtotal = baseFare + distanceCharge;
+        const gstTax = Math.round(subtotal * 0.05); // 5% GST
+        const total = subtotal + gstTax;
+
+        return {
+            tierId: tier.id,
+            tierName: tier.name,
+            distanceKm: dist,
+            baseFare,
+            baseDistance: tier.baseDistance,
+            perKmRate: tier.perKmRate,
+            extraKm: parseFloat(extraKm.toFixed(1)),
+            distanceCharge,
+            gstTax,
+            totalFare: total,
+            currency: '₹'
+        };
+    }
+
+    function bookAmbulance(tierId, pickupLocation, destinationHospitalId, customDestination) {
+        const tier = getAmbulanceTier(tierId);
+        if (!tier) return null;
+
+        const hospital = destinationHospitalId ? getHospital(destinationHospitalId) : null;
+        const destination = hospital ? `${hospital.name} (${hospital.area})` : (customDestination || 'Asteria Care Hospital');
+        const distanceKm = hospital ? hospital.distance : 5.8;
+        const fare = calculateAmbulanceFare(tierId, distanceKm);
+
+        // Find nearest available vehicle of this tier or fallback
+        const matchingVehicle = state.ambulances.find(a => a.tierId === tierId && a.status === 'available') 
+            || state.ambulances.find(a => a.status === 'available') 
+            || state.ambulances[0];
+
+        matchingVehicle.status = 'dispatched';
+
+        const booking = {
+            id: genId('AMB'),
+            tier: deepClone(tier),
+            vehicle: deepClone(matchingVehicle),
+            patient: deepClone(state.patient),
+            pickup: pickupLocation || 'Koramangala 5th Block, Bengaluru (GPS Active)',
+            destination,
+            destinationHospitalId: hospital ? hospital.id : null,
+            fare,
+            status: 'driver_assigned', // searching -> driver_assigned -> en_route -> on_board -> completed -> cancelled
+            etaMin: tier.etaMin,
+            speedKmH: matchingVehicle.speedKmH,
+            vitals: deepClone(matchingVehicle.vitals),
+            timeline: [
+                { event: 'Booking Request Received', time: Date.now(), status: 'completed' },
+                { event: `Ambulance Dispatched: ${matchingVehicle.vehicleNo}`, time: Date.now() + 500, status: 'completed' },
+                { event: 'Driver Reaching Pickup Location', time: null, status: 'active' },
+                { event: 'Patient Onboard & Telemetry Active', time: null, status: 'pending' },
+                { event: 'Arrived at Destination ER', time: null, status: 'pending' }
+            ],
+            createdAt: Date.now()
+        };
+
+        state.activeAmbulanceBooking = booking;
+        state.ambulanceBookings.unshift(booking);
+
+        EventBus.emit('ambulance.booked', { booking: deepClone(booking) });
+        addActivity('ambulance', `🚑 ${tier.name} dispatched to ${pickupLocation || 'Koramangala'}`, hospital ? hospital.id : null);
+        addNotification('ambulance', '🚑 Ambulance Dispatched', `${tier.name} (${matchingVehicle.vehicleNo}) is on the way. Driver: ${matchingVehicle.driverName} • ETA: ${tier.etaMin} min.`);
+
+        return booking;
+    }
+
+    function cancelAmbulance(bookingId) {
+        if (state.activeAmbulanceBooking && state.activeAmbulanceBooking.id === bookingId) {
+            state.activeAmbulanceBooking.status = 'cancelled';
+            const vehicle = state.ambulances.find(a => a.id === state.activeAmbulanceBooking.vehicle.id);
+            if (vehicle) vehicle.status = 'available';
+            const cancelled = deepClone(state.activeAmbulanceBooking);
+            state.activeAmbulanceBooking = null;
+            EventBus.emit('ambulance.cancelled', { booking: cancelled });
+            addNotification('ambulance', 'Ambulance Ride Cancelled', `Booking ${bookingId} has been cancelled.`);
+        }
+    }
+
+    function completeAmbulanceRide(bookingId) {
+        if (state.activeAmbulanceBooking && state.activeAmbulanceBooking.id === bookingId) {
+            state.activeAmbulanceBooking.status = 'completed';
+            state.activeAmbulanceBooking.timeline.forEach(t => { t.status = 'completed'; if (!t.time) t.time = Date.now(); });
+            const vehicle = state.ambulances.find(a => a.id === state.activeAmbulanceBooking.vehicle.id);
+            if (vehicle) vehicle.status = 'available';
+            const completed = deepClone(state.activeAmbulanceBooking);
+            EventBus.emit('ambulance.completed', { booking: completed });
+            addNotification('ambulance', '✅ Destination Reached', `Ambulance reached ${completed.destination}. Handed over to ER medical team.`);
+            return completed;
+        }
+        return null;
+    }
+
+    function resetDemo() {
+        state.hospitals = JSON.parse(JSON.stringify(INITIAL_HOSPITALS));
+        state.patient = JSON.parse(JSON.stringify(INITIAL_PATIENT));
+        state.ambulances = JSON.parse(JSON.stringify(INITIAL_AMBULANCES));
+        state.ambulanceBookings = [];
+        state.activeAmbulanceBooking = null;
+        state.reservations = [];
+        state.sosIncidents = [];
+        state.notifications = [];
+        state.activityFeed = [];
+        state.selectedHospital = null;
+        state.compareList = [];
+        state.filters = { bedType: 'All', availableOnly: false, search: '' };
+        state._idCounter = 1;
+        EventBus.emit('demo.reset');
+        addNotification('system', 'Demo Reset', 'All data restored to initial state.');
+    }
+
     function getActiveTriageCall() { return state.activeTriageCall; }
     function setActiveTriageCall(call) { state.activeTriageCall = call; }
 
@@ -594,6 +949,8 @@ window.MediJointsStore = (function() {
         createReservation, acceptReservation, createSOS, acceptSOS,
         addNotification, markNotificationRead, addActivity, resetDemo,
         selectHospital, selectTreatment, toggleCompare, triageSymptoms, genId, deepClone,
-        getActiveTriageCall, setActiveTriageCall
+        getActiveTriageCall, setActiveTriageCall,
+        getAmbulanceTiers, getAmbulanceTier, getAmbulanceFleet, getActiveAmbulanceBooking,
+        getAmbulanceBookings, calculateAmbulanceFare, bookAmbulance, cancelAmbulance, completeAmbulanceRide
     };
 })();
