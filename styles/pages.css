@@ -29,6 +29,26 @@
     color: var(--color-primary);
     cursor: pointer;
 }
+.sidebar-toggle-btn {
+    width: 38px;
+    height: 38px;
+    border-radius: var(--radius-md);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    cursor: pointer;
+    font-size: 1.1rem;
+    color: var(--color-primary);
+    transition: all var(--transition-fast);
+    margin-right: var(--space-2);
+}
+.sidebar-toggle-btn:hover {
+    background: rgba(var(--color-primary-rgb), 0.08);
+    border-color: var(--color-primary);
+    transform: scale(1.05);
+}
 .nav-brand-icon {
     width: 36px;
     height: 36px;
@@ -128,7 +148,31 @@
     overflow-y: auto;
     z-index: var(--z-sidebar);
     padding: var(--space-4) var(--space-3);
-    transition: transform var(--transition-base);
+    transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1), width 0.25s ease;
+}
+.sidebar.collapsed {
+    transform: translateX(-100%);
+}
+.sidebar-collapse-bar-btn {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: var(--space-2) var(--space-3);
+    background: var(--color-surface);
+    border: 1px solid var(--color-border-light);
+    border-radius: var(--radius-md);
+    color: var(--color-text-secondary);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    cursor: pointer;
+    margin-bottom: var(--space-3);
+    transition: all var(--transition-fast);
+}
+.sidebar-collapse-bar-btn:hover {
+    background: rgba(var(--color-primary-rgb), 0.06);
+    color: var(--color-primary);
+    border-color: var(--color-primary);
 }
 .sidebar-section { margin-bottom: var(--space-4); }
 .sidebar-section-title {
@@ -186,13 +230,16 @@
 /* ─── Main Content ─── */
 .main-content {
     flex: 1;
-    transition: margin var(--transition-base);
+    transition: margin 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .main-content.with-nav {
     margin-top: var(--nav-height);
 }
 .main-content.with-sidebar {
     margin-left: var(--sidebar-width);
+}
+.main-content.with-sidebar.sidebar-collapsed {
+    margin-left: 0 !important;
 }
 
 .page-container {

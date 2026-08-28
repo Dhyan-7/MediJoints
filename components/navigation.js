@@ -58,6 +58,33 @@ window.Navigation = (function() {
         }
     };
 
+    let isSidebarHidden = false;
+
+    function toggleSidebar() {
+        isSidebarHidden = !isSidebarHidden;
+        const sidebar = document.getElementById('sidebar');
+        const main = document.getElementById('main-content');
+        const toggleBtn = document.getElementById('sidebar-toggle-btn');
+
+        if (sidebar && main) {
+            if (isSidebarHidden) {
+                sidebar.classList.add('collapsed');
+                main.classList.add('sidebar-collapsed');
+                if (toggleBtn) {
+                    toggleBtn.innerHTML = '☰';
+                    toggleBtn.setAttribute('title', 'Show Menu (Expand Sidebar)');
+                }
+            } else {
+                sidebar.classList.remove('collapsed');
+                main.classList.remove('sidebar-collapsed');
+                if (toggleBtn) {
+                    toggleBtn.innerHTML = '◀';
+                    toggleBtn.setAttribute('title', 'Hide Menu (Collapse Sidebar)');
+                }
+            }
+        }
+    }
+
     function renderNav() {
         const nav = document.getElementById('main-nav');
         const role = MediJointsStore.getCurrentRole();
@@ -68,9 +95,14 @@ window.Navigation = (function() {
         const activeSOSCount = MediJointsStore.getActiveSOSCount();
 
         nav.innerHTML = `
-            <div class="nav-brand" onclick="window.MediJoints.navigateTo('/')">
-                <div class="nav-brand-icon">M</div>
-                <span>Medi Joints</span>
+            <div style="display:flex;align-items:center">
+                <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" onclick="Navigation.toggleSidebar()" title="${isSidebarHidden ? 'Show Menu (Expand Sidebar)' : 'Hide Menu (Collapse Sidebar)'}">
+                    ${isSidebarHidden ? '☰' : '◀'}
+                </button>
+                <div class="nav-brand" onclick="window.MediJoints.navigateTo('/')">
+                    <div class="nav-brand-icon">M</div>
+                    <span>Medi Joints</span>
+                </div>
             </div>
             <div class="nav-actions">
                 <div class="nav-role-switcher">
@@ -94,12 +126,23 @@ window.Navigation = (function() {
         if (!role || !sidebarConfig[role]) { sidebar.classList.add('hidden'); return; }
         sidebar.classList.remove('hidden');
 
+        if (isSidebarHidden) {
+            sidebar.classList.add('collapsed');
+        } else {
+            sidebar.classList.remove('collapsed');
+        }
+
         const config = sidebarConfig[role];
         const currentPage = MediJointsStore.getState().currentPage;
         const unread = MediJointsStore.getUnreadCount();
         const activeSOSCount = MediJointsStore.getActiveSOSCount();
 
-        let html = `<div class="sidebar-section">
+        let html = `
+        <button class="sidebar-collapse-bar-btn" onclick="Navigation.toggleSidebar()">
+            <span>◀ Hide Menu</span>
+            <span style="font-size:10px;opacity:0.7">Collapse</span>
+        </button>
+        <div class="sidebar-section">
             <div class="sidebar-section-title">${config.title}</div>`;
 
         config.items.forEach(item => {
@@ -125,9 +168,14 @@ window.Navigation = (function() {
         if (role) {
             main.classList.add('with-nav');
             main.classList.add('with-sidebar');
+            if (isSidebarHidden) {
+                main.classList.add('sidebar-collapsed');
+            } else {
+                main.classList.remove('sidebar-collapsed');
+            }
             demoBadge.classList.remove('hidden');
         } else {
-            main.classList.remove('with-nav', 'with-sidebar');
+            main.classList.remove('with-nav', 'with-sidebar', 'sidebar-collapsed');
             demoBadge.classList.add('hidden');
         }
 
@@ -138,5 +186,5 @@ window.Navigation = (function() {
         }
     }
 
-    return { renderNav, renderSidebar, updateLayout };
+    return { renderNav, renderSidebar, updateLayout, toggleSidebar };
 })();
