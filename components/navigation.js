@@ -58,18 +58,21 @@ window.Navigation = (function() {
         }
     };
 
-    let isSidebarHidden = false;
+    let isSidebarHidden = window.innerWidth <= 1024;
 
     function toggleSidebar() {
         isSidebarHidden = !isSidebarHidden;
         const sidebar = document.getElementById('sidebar');
         const main = document.getElementById('main-content');
+        const backdrop = document.getElementById('sidebar-backdrop');
         const toggleBtn = document.getElementById('sidebar-toggle-btn');
+        const isMobile = window.innerWidth <= 1024;
 
         if (sidebar && main) {
             if (isSidebarHidden) {
                 sidebar.classList.add('collapsed');
                 main.classList.add('sidebar-collapsed');
+                if (backdrop) backdrop.classList.add('hidden');
                 if (toggleBtn) {
                     toggleBtn.innerHTML = '☰';
                     toggleBtn.setAttribute('title', 'Show Menu (Expand Sidebar)');
@@ -77,12 +80,20 @@ window.Navigation = (function() {
             } else {
                 sidebar.classList.remove('collapsed');
                 main.classList.remove('sidebar-collapsed');
+                if (backdrop && isMobile) backdrop.classList.remove('hidden');
                 if (toggleBtn) {
-                    toggleBtn.innerHTML = '◀';
+                    toggleBtn.innerHTML = isMobile ? '✕' : '◀';
                     toggleBtn.setAttribute('title', 'Hide Menu (Collapse Sidebar)');
                 }
             }
         }
+    }
+
+    function handleNavClick(path) {
+        if (window.innerWidth <= 1024 && !isSidebarHidden) {
+            toggleSidebar();
+        }
+        window.MediJoints.navigateTo(path);
     }
 
     function renderNav() {
@@ -93,11 +104,12 @@ window.Navigation = (function() {
 
         const unread = MediJointsStore.getUnreadCount();
         const activeSOSCount = MediJointsStore.getActiveSOSCount();
+        const isMobile = window.innerWidth <= 1024;
 
         nav.innerHTML = `
-            <div style="display:flex;align-items:center">
+            <div style="display:flex;align-items:center;gap:var(--space-2)">
                 <button id="sidebar-toggle-btn" class="sidebar-toggle-btn" onclick="Navigation.toggleSidebar()" title="${isSidebarHidden ? 'Show Menu (Expand Sidebar)' : 'Hide Menu (Collapse Sidebar)'}">
-                    ${isSidebarHidden ? '☰' : '◀'}
+                    ${isSidebarHidden ? '☰' : (isMobile ? '✕' : '◀')}
                 </button>
                 <div class="nav-brand" onclick="window.MediJoints.navigateTo('/')">
                     <div class="nav-brand-icon">M</div>
@@ -122,14 +134,22 @@ window.Navigation = (function() {
 
     function renderSidebar() {
         const sidebar = document.getElementById('sidebar');
+        const backdrop = document.getElementById('sidebar-backdrop');
         const role = MediJointsStore.getCurrentRole();
-        if (!role || !sidebarConfig[role]) { sidebar.classList.add('hidden'); return; }
+        if (!role || !sidebarConfig[role]) { 
+            sidebar.classList.add('hidden'); 
+            if (backdrop) backdrop.classList.add('hidden');
+            return; 
+        }
         sidebar.classList.remove('hidden');
 
+        const isMobile = window.innerWidth <= 1024;
         if (isSidebarHidden) {
             sidebar.classList.add('collapsed');
+            if (backdrop) backdrop.classList.add('hidden');
         } else {
             sidebar.classList.remove('collapsed');
+            if (backdrop && isMobile) backdrop.classList.remove('hidden');
         }
 
         const config = sidebarConfig[role];
@@ -148,7 +168,7 @@ window.Navigation = (function() {
         config.items.forEach(item => {
             const isActive = currentPage === item.path || currentPage.startsWith(item.path + '/');
             const badgeCount = item.badge ? unread : (item.critical ? activeSOSCount : 0);
-            html += `<a class="sidebar-link ${isActive ? 'active' : ''}" onclick="window.MediJoints.navigateTo('${item.path}')">
+            html += `<a class="sidebar-link ${isActive ? 'active' : ''}" onclick="Navigation.handleNavClick('${item.path}')">
                 <span class="sidebar-link-icon">${item.icon}</span>
                 <span>${item.label}</span>
                 ${badgeCount > 0 ? `<span class="sidebar-link-badge">${badgeCount}</span>` : ''}
@@ -164,11 +184,13 @@ window.Navigation = (function() {
         const role = MediJointsStore.getCurrentRole();
         const sosBtn = document.getElementById('sos-floating-btn');
         const demoBadge = document.getElementById('demo-badge');
+        const backdrop = document.getElementById('sidebar-backdrop');
+        const isMobile = window.innerWidth <= 1024;
 
         if (role) {
             main.classList.add('with-nav');
             main.classList.add('with-sidebar');
-            if (isSidebarHidden) {
+            if (isSidebarHidden || isMobile) {
                 main.classList.add('sidebar-collapsed');
             } else {
                 main.classList.remove('sidebar-collapsed');
@@ -177,6 +199,7 @@ window.Navigation = (function() {
         } else {
             main.classList.remove('with-nav', 'with-sidebar', 'sidebar-collapsed');
             demoBadge.classList.add('hidden');
+            if (backdrop) backdrop.classList.add('hidden');
         }
 
         if (role === 'patient') {
@@ -186,5 +209,5 @@ window.Navigation = (function() {
         }
     }
 
-    return { renderNav, renderSidebar, updateLayout, toggleSidebar };
+    return { renderNav, renderSidebar, updateLayout, toggleSidebar, handleNavClick };
 })();
